@@ -1,0 +1,25 @@
+body{
+    background-image: url("black_blue.jpg");
+}
+
+table { 
+    
+    border : none;
+    border-collapse: collapse;
+    background-color:black;
+}
+
+td{
+    font-size: 40px;
+    padding: 5px;
+	border: none;
+}
+button {
+    width: 50;
+    height: 50;
+    font-size: 30;
+    margin: 2;
+    
+
+
+}

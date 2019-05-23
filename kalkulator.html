@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet"  href="kalkulator.css">
+    <title>kalkulator</title>
+</head>
+<body>
+        <h2><center><font color="blue">kalkulator</center></h2>
+            <br></br>
+            
+            <form name= "Keypad" action>
+            <center>    
+            <table border= "1" >
+            <tr>
+            <td colspan= "5" >
+            <input name= "ReadOut" type= "Text" size= "30" value= "0" >
+            </td>
+            </tr>
+            <tr>
+            <td>
+            <input name= "btnSeven" type= "Button" value= "  7 " onClick= "NumPressed(7)"
+             >
+            </td>
+            <td>
+            <input name= "btnEight" type= "Button" value= "  8 " onClick= "NumPressed(8)" >
+            </td>
+            <td>
+            <input name= "btnNine" type= "Button" value= "  9 " onClick= "NumPressed(9)" >
+            </td>
+            <td><input name= "btnNeg" type= "Button" value= "+/- " onClick= "Neg()" ></td>
+            <td><input name= "btnPercent" type= "Button" value= " % " onClick= "Percent()" ></td>
+            
+            </tr>
+            <tr>
+            <td>
+            
+            <input name= "btnFour" type= "Button" value= "  4 " onClick= "NumPressed(4)" >
+            </td>
+            <td>
+            <input name= "btnFive" type= "Button" value= "  5 " onClick= "NumPressed(5)" >
+            </td>
+            <td>
+            <input name= "btnSix" type= "Button" value= "  6 " onClick= "NumPressed(6)" >
+            </td>
+            <td><input name= "btnPlus" type= "Button" value= " +  "
+            onClick= "Operation('+')" ></td>
+            <td><input name= "btnMultiply" type= "Button" value= "  x  "
+            onClick= "Operation('*')" ></td>
+            
+            </tr>
+            <tr>
+            <td>
+            <input name= "btnOne" type= "Button" value= "  1 " onClick= "NumPressed(1)" >
+            </td>
+            <td>
+            <input name= "btnTwo" type= "Button" value= "  2 " onClick= "NumPressed(2)" >
+            </td>
+            <td>
+            <input name= "btnThree" type= "Button" value= "  3 " onClick= "NumPressed(3)" >
+            </td>
+            <td><input name= "btnMinus" type= "Button" value= "  -  "
+            onClick= "Operation('-')" ></td>
+            <td><input name= "btnDivide" type= "Button" value= "  /  "
+            onClick= "Operation('/')" ></td>
+            
+            </tr>
+            <tr>
+            <td>
+            <input name= "btnZero" type= "Button" value= "  0 " onClick= "NumPressed(0)" >
+            </td>
+            <td>
+            <input name= "btnDecimal" type= "Button" value= "  .  " onClick= "Decimal()" >
+            </td>
+            <td colspan= "3" >
+            <input name= "btnClear" type= "Button" value= "  C  " onClick= "Clear()" >
+            <input name= "btnClearEntry" type= "Button" value= " CE " onClick= "ClearEntry()" >
+            <input name= "btnEquals" type= "Button" value= "  =  " onClick= "Operation('=')" ></td>
+            </tr>
+            </table> </center>
+            </form>
+<script> 
+var FKeyPad = document.Keypad;
+var Accum = 0;
+var FlagNewNum = false ;
+var PendingOp = "" ;
+function NumPressed (Num) {
+if (FlagNewNum) {
+FKeyPad.ReadOut.value= Num;
+FlagNewNum = false ;
+ }
+else {
+if (FKeyPad.ReadOut.value== "0" )
+FKeyPad.ReadOut.value= Num;
+else
+FKeyPad.ReadOut.value+= Num;
+}
+}
+function Operation (Op) {
+var Readout = FKeyPad.ReadOut.value;
+if (FlagNewNum && PendingOp != "=" );
+else
+{
+FlagNewNum = true ;
+if ( '+' == PendingOp )
+Accum += parseInt(Readout);
+else if ( '-' == PendingOp)
+Accum -= parseInt(Readout);
+else if ( '/' == PendingOp)
+Accum /= parseInt(Readout);
+else if ( '*' == PendingOp)
+Accum *= parseInt(Readout);
+else
+Accum = parseInt(Readout); FKeyPad.ReadOut.value= Accum;
+PendingOp = Op;
+}
+}
+function Decimal () {
+var curReadOut = FKeyPad.ReadOut.value;
+if (FlagNewNum) {
+curReadOut = "0." ;
+FlagNewNum = false ;
+}
+else
+{
+if (curReadOut.indexOf( "." ) == -1)
+curReadOut += "." ;
+}
+ FKeyPa
+ d.ReadOut.value= curReadOut;
+}
+function ClearEntry () {
+FKeyPad.ReadOut.value= "0" ;
+FlagNewNum = true ;
+}
+function Clear () {
+Accum = 0;
+PendingOp = "" ;
+ClearEntry();
+}
+function Neg () {
+FKeyPad.ReadOut.value= parseInt(FKeyPad.ReadOut.value) * -1;
+} 
+function Percent () { FKeyPad.ReadOut.value= (parseInt(FKeyPad.ReadOut.value) / 100) * parseInt(Accum);
+}
+
+</script>
+</body>
+</html>
